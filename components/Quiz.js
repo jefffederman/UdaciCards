@@ -82,28 +82,32 @@ export default class Quiz extends Component {
               You finished with {correctCount} / {questionsCount} questions correct.
             </Text>
 
-            <TouchableOpacity
-              style={[
-                styles.button,
-                { backgroundColor: gray }
-              ]}
-              onPress={this.restartQuiz}
-            >
-              <Text style={[styles.buttonText]}>Restart Quiz</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                 styles.button,
-                { backgroundColor: gray }
-              ]}
-              onPress={() => this.props.navigation.navigate(
-                'DeckDetail',
-                { title: this.props.navigation.state.params.title }
-              )}
-            >
-              <Text style={styles.buttonText}>Back to Deck</Text>
-            </TouchableOpacity>
-
+            <View>
+              <TouchableOpacity
+                style={[
+                  styles.button,
+                  {
+                    borderColor: gray,
+                    borderWidth: 2
+                  }
+                ]}
+                onPress={this.restartQuiz}
+              >
+                <Text style={[styles.buttonText, { color: gray }]}>Restart Quiz</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                   styles.button,
+                  { backgroundColor: gray }
+                ]}
+                onPress={() => this.props.navigation.navigate(
+                  'DeckDetail',
+                  { title: this.props.navigation.state.params.title }
+                )}
+              >
+                <Text style={styles.buttonText}>Back to Deck</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         )
       }
@@ -113,12 +117,16 @@ export default class Quiz extends Component {
 
       return (
         <View style={styles.quiz}>
-          <Text>Question {index + 1} of {questionsCount}</Text>
-          <Text>{correctCount} questions correct</Text>
-          <Text style={styles.question}>{shown}</Text>
-          <TouchableOpacity onPress={this.toggleQuestionAnswer}>
-            <Text>{showButtonText}</Text>
-          </TouchableOpacity>
+          <View style={{ flex: 1, alignItems: 'center', marginTop: 10 }}>
+            <Text>Question {index + 1} of {questionsCount}</Text>
+            <Text>{correctCount} questions correct</Text>
+          </View>
+          <View style={{ flex: 1, alignItems: 'center' }}>
+            <Text style={[styles.question, { marginBottom: 20 }]}>{shown}</Text>
+            <TouchableOpacity onPress={this.toggleQuestionAnswer}>
+              <Text style={{ color: gray }}>{showButtonText}</Text>
+            </TouchableOpacity>
+          </View>
           <TouchableOpacity
             style={[
               styles.button,
@@ -143,7 +151,7 @@ export default class Quiz extends Component {
 
     return (
       <View style={styles.quiz}>
-        <Text>No questions :(</Text>
+        <Text style={styles.question}>No questions :(</Text>
       </View>
     )
   }
