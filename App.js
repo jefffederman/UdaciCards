@@ -1,4 +1,3 @@
-// TabNavigation betw DeckList <-> New Deck
 import React from 'react'
 import {
   StyleSheet,
@@ -60,16 +59,17 @@ const MainNav = StackNavigator({
 
 export default class App extends React.Component {
   componentDidMount() {
-    if (!AsyncStorage.getItem(DECKS_KEY)) {
-      AsyncStorage.setItem(DECKS_KEY, JSON.stringify({}))
-        .then(() => {
-          Object.keys(fakeData).forEach((key) => {
-            AsyncStorage.mergeItem(DECKS_KEY, JSON.stringify({
-              [key]: fakeData[key]
-            }))
-          })
-        })
-    }
+    AsyncStorage.getItem(DECKS_KEY)
+    .catch(() => {
+      return AsyncStorage.setItem(DECKS_KEY, JSON.stringify({}))
+    })
+    .then(() => {
+      Object.keys(fakeData).forEach((key) => {
+        AsyncStorage.mergeItem(DECKS_KEY, JSON.stringify({
+          [key]: fakeData[key]
+        }))
+      })
+    })
   }
 
   render() {
