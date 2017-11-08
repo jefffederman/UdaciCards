@@ -10,23 +10,33 @@ import { NavigationActions } from 'react-navigation'
 import { gray, white } from '../colors'
 import { saveDeckTitle } from '../api'
 
-const resetAction = NavigationActions.reset({
-  index: 0,
-  actions: [
-    NavigationActions.navigate({ routeName: 'Home'})
-  ]
-})
-
 export default class NewDeck extends Component {
   state = {
     deckTitle: ''
   }
 
+  resetAction = (title) => {
+    return NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({
+          routeName: 'DeckDetail',
+          params: { title }
+        })
+      ]
+    })
+  }
+
   submit = () => {
+    const title = this.state.deckTitle
     // Add to local storage
-    saveDeckTitle(this.state.deckTitle)
+    saveDeckTitle(title)
       // Navigate to home page
-      .then(() => this.props.navigation.dispatch(resetAction))
+      .then(() => this.props.navigation.dispatch(this.resetAction(title)))
+      // .then(() => this.props.navigation.navigate(
+      //   'DeckDetail',
+      //   { title }
+      // ))
   }
 
   handleTextChange = (text) => {

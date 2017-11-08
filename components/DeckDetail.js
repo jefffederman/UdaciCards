@@ -34,7 +34,7 @@ export default class DeckDetail extends Component {
   }
 
   render() {
-    const { title } = this.state.deck
+    const { title, questions } = this.state.deck
     return (
       <View style={styles.deckItem}>
         <View>
@@ -58,7 +58,8 @@ export default class DeckDetail extends Component {
           <TouchableOpacity
             style={[styles.button, styles.addCard]}
             onPress={() => this.props.navigation.navigate(
-              'Quiz'
+              'Quiz',
+              { questions }
             )}
           >
             <Text
