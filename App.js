@@ -1,6 +1,12 @@
 // TabNavigation betw DeckList <-> New Deck
 import React from 'react'
-import { StyleSheet, Text, View, StatusBar } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+  AsyncStorage
+} from 'react-native'
 import { Constants } from 'expo'
 import NewDeck from './components/NewDeck'
 import NewCard from './components/NewCard'
@@ -8,6 +14,8 @@ import DeckList from './components/DeckList'
 import DeckDetail from './components/DeckDetail'
 import Quiz from './components/Quiz'
 import { TabNavigator, StackNavigator } from 'react-navigation'
+import fakeData from './fakeData'
+import { DECKS_KEY } from './api'
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
   return (
@@ -48,6 +56,19 @@ const MainNav = StackNavigator({
 })
 
 export default class App extends React.Component {
+  componentDidMount() {
+    if (!AsyncStorage.getItem(DECKS_KEY)) {
+      AsyncStorage.setItem(DECKS_KEY, JSON.stringify({}))
+        .then(() => {
+          Object.keys(fakeData).forEach((key) => {
+            AsyncStorage.mergeItem(DECKS_KEY, JSON.stringify({
+              [key]: fakeData[key]
+            }))
+          })
+        })
+    }
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>

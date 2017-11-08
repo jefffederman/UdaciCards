@@ -7,22 +7,38 @@ import {
   StyleSheet
 } from 'react-native'
 import { white, gray } from '../colors'
+import { getDecks } from '../api'
 
 export default class DeckList extends Component {
-  render() {
-    const data = [
-      { id: 1, title: 'First deck', count: 5 },
-      { id: 2, title: 'Second deck', count: 18 },
-      { id: 3, title: 'Third deck', count: 3 },
-      { id: 4, title: 'Fourth deck', count: 12 },
-      { id: 5, title: 'Fifth deck', count: 11 }
-    ]
+  state = {
+    decks: []
+  }
 
+  cardsCount = (key) => {
+    const count = this.state.decks.filter((deck) => deck.title === key)[0]
+      .questions.length
+    return count === 1 ? `${count} card` : `${count} cards`
+  }
+
+  componentDidMount() {
+    getDecks().then((decks) => {
+      this.setState({ decks })
+    })
+  }
+
+  componentDidUpdate() {
+    getDecks().then((decks) => {
+      this.setState({ decks })
+    })
+  }
+
+  render() {
     return (
       <FlatList
-        data={data}
-        keyExtractor={(item, index) => item.id}
+        data={this.state.decks}
+        keyExtractor={(item, index) => item.title}
         renderItem={({ item }) => {
+          const { title } = item
           return (
             <View style={styles.deckItem}>
               <TouchableOpacity
@@ -30,7 +46,7 @@ export default class DeckList extends Component {
                 onPress={() => {
                   this.props.navigation.navigate(
                     'DeckDetail',
-                    {}
+                    { title }
                   )
                 }}
               >
@@ -40,7 +56,7 @@ export default class DeckList extends Component {
                     styles.deckHeading
                   ]}
                 >
-                  {item.title}
+                  {title}
                 </Text>
                 <Text
                   style={[
@@ -48,7 +64,7 @@ export default class DeckList extends Component {
                     styles.deckSubheading
                   ]}
                 >
-                  {item.count} cards
+                  {this.cardsCount(title)}
                 </Text>
               </TouchableOpacity>
             </View>

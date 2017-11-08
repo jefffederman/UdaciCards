@@ -6,17 +6,23 @@ import {
   TextInput,
   StyleSheet
 } from 'react-native'
+import { NavigationActions } from 'react-navigation'
 import { gray, white } from '../colors'
+import { addCardToDeck } from '../api'
 
 export default class NewQuiz extends Component {
-  state = {
+  defaultState = {
     question: '',
     answer: ''
   }
 
+  state = this.defaultState
+
   submit = () => {
-    alert('Submitted')
-    // Add to local storage
+    const { title } = this.props.navigation.state.params
+    addCardToDeck(title, this.state)
+      .then(() => this.setState(this.defaultState))
+      .then(() => this.props.navigation.goBack())
   }
 
   render() {

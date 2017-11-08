@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import { gray, white } from '../colors'
+import { saveDeckTitle } from '../api'
 
 const resetAction = NavigationActions.reset({
   index: 0,
@@ -23,9 +24,9 @@ export default class NewDeck extends Component {
 
   submit = () => {
     // Add to local storage
-    // Navigate to home page
-    this.props.navigation.dispatch(resetAction)
-
+    saveDeckTitle(this.state.deckTitle)
+      // Navigate to home page
+      .then(() => this.props.navigation.dispatch(resetAction))
   }
 
   handleTextChange = (text) => {

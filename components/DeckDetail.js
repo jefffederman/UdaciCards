@@ -6,21 +6,47 @@ import {
   StyleSheet
 } from 'react-native'
 import { gray, white } from '../colors'
+import { getDeck } from '../api'
 
 export default class DeckDetail extends Component {
+  state = {
+    deck: {
+      questions: []
+    }
+  }
+
+  cardsCount = () => {
+    const count = this.state.deck.questions.length
+    return count === 1 ? `${count} card` : `${count} cards`
+  }
+
+  updateDeck = () => {
+    const { title } = this.props.navigation.state.params
+    getDeck(title).then((deck) => this.setState({ deck }))
+  }
+
+  componentDidMount() {
+    this.updateDeck()
+  }
+
+  componentDidUpdate() {
+    this.updateDeck()
+  }
+
   render() {
-    const { title, cardsCount } = this.props
+    const { title } = this.state.deck
     return (
       <View style={styles.deckItem}>
         <View>
-          <Text style={styles.deckHeading}>First Deck</Text>
-          <Text style={styles.deckSubheading}>7 cards</Text>
+          <Text style={styles.deckHeading}>{title}</Text>
+          <Text style={styles.deckSubheading}>{this.cardsCount()}</Text>
         </View>
         <View>
           <TouchableOpacity
             style={styles.button}
             onPress={() => this.props.navigation.navigate(
-              'NewCard'
+              'NewCard',
+              { title }
             )}
           >
             <Text
