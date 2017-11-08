@@ -42,7 +42,10 @@ const Tabs = TabNavigator({
 
 const MainNav = StackNavigator({
   Home: {
-    screen: Tabs
+    screen: Tabs,
+    navigationOptions: {
+      title: 'My Decks'
+    }
   },
   DeckDetail: {
     screen: DeckDetail

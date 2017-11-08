@@ -9,6 +9,13 @@ import { gray, white } from '../colors'
 import { getDeck } from '../api'
 
 export default class DeckDetail extends Component {
+
+  static navigationOptions = ({ navigation, screenProps }) => {
+    return {
+      title: navigation.state.params.title
+    }
+  }
+
   state = {
     deck: {
       questions: []
