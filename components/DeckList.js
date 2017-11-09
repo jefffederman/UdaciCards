@@ -33,6 +33,15 @@ export default class DeckList extends Component {
   }
 
   render() {
+    const { decks } = this.state
+    if (!decks.length) {
+      return (
+        <View>
+          <Text>No decks yet :(</Text>
+          <Text>Use the tab bar to add one ;-)</Text>
+        </View>
+      )
+    }
     return (
       <FlatList
         data={this.state.decks}

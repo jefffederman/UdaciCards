@@ -70,16 +70,16 @@ const MainNav = StackNavigator({
 export default class App extends React.Component {
   componentDidMount() {
     AsyncStorage.getItem(DECKS_KEY)
-    .catch(() => {
-      return AsyncStorage.setItem(DECKS_KEY, JSON.stringify({}))
-    })
-    .then(() => {
-      Object.keys(fakeData).forEach((key) => {
-        AsyncStorage.mergeItem(DECKS_KEY, JSON.stringify({
-          [key]: fakeData[key]
-        }))
+      .catch(() => {
+        return AsyncStorage.setItem(DECKS_KEY, JSON.stringify({}))
       })
-    })
+      .then(() => {
+        Object.keys(fakeData).forEach((key) => {
+          AsyncStorage.mergeItem(DECKS_KEY, JSON.stringify({
+            [key]: fakeData[key]
+          }))
+        })
+      })
 
     setLocalNotification()
   }

@@ -30,11 +30,15 @@ export const DECKS_KEY = 'decks'
 // return all of the decks along with their titles, questions, and answers
 export function getDecks() {
   return AsyncStorage.getItem(DECKS_KEY)
+    .catch(() => {
+      return AsyncStorage.setItem(DECKS_KEY, JSON.stringify({}))
+    })
     .then((rawResult) => JSON.parse(rawResult))
     .then((result) => {
       const keys = Object.keys(result)
       return keys.map((key) => result[key])
     })
+    .catch(() => [])
 }
 
 // take in a single id argument and return the deck associated with that id
