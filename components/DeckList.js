@@ -20,15 +20,24 @@ export default class DeckList extends Component {
     return count === 1 ? `${count} card` : `${count} cards`
   }
 
+  isSet = false
+
   componentDidMount() {
+    this.isSet = true
     getDecks().then((decks) => {
       this.setState({ decks })
     })
   }
 
+  componentWillUnmount() {
+    this.isSet = false
+  }
+
   componentDidUpdate() {
     getDecks().then((decks) => {
-      this.setState({ decks })
+      if (this.isSet) {
+        this.setState({ decks })
+      }
     })
   }
 

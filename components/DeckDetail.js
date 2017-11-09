@@ -30,10 +30,17 @@ export default class DeckDetail extends Component {
 
   updateDeck = () => {
     const { title } = this.props.navigation.state.params
-    getDeck(title).then((deck) => this.setState({ deck }))
+    getDeck(title).then((deck) => {
+      if (this.isSet) {
+        this.setState({ deck })
+      }
+    })
   }
 
+  isSet = false
+
   componentDidMount() {
+    this.isSet = true
     this.updateDeck()
   }
 
@@ -41,6 +48,10 @@ export default class DeckDetail extends Component {
   // but it gives a warning going back to DeckList :/
   componentDidUpdate() {
     this.updateDeck()
+  }
+
+  componentWillUnmount() {
+    this.isSet = false
   }
 
   render() {
