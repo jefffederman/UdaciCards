@@ -7,6 +7,7 @@ import {
   AsyncStorage
 } from 'react-native'
 import { Constants } from 'expo'
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import NewDeck from './components/NewDeck'
 import NewCard from './components/NewCard'
 import DeckList from './components/DeckList'
@@ -28,13 +29,21 @@ const Tabs = TabNavigator({
   DeckList: {
     screen: DeckList,
     navigationOptions: {
-      tabBarLabel: 'My Decks'
+      tabBarLabel: 'My Decks',
+      tabBarIcon: <MaterialCommunityIcons
+                    name='cards'
+                    size={24}
+                  />
     }
   },
   NewDeck: {
     screen: NewDeck,
     navigationOptions: {
-      tabBarLabel: 'Add Deck'
+      tabBarLabel: 'Add Deck',
+      tabBarIcon: <MaterialIcons
+                    name='library-add'
+                    size={24}
+                  />
     }
   }
 })
