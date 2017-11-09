@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import { gray, white, red, green } from '../colors'
+import { clearLocalNotifications, setLocalNotification } from '../notifications'
 
 export default class Quiz extends Component {
   static navigationOptions = {
@@ -34,6 +35,9 @@ export default class Quiz extends Component {
           correctCount: prevState.correctCount + isCorrect
         }
       })
+    } else {
+      clearLocalNotifications()
+        .then(setLocalNotification)
     }
   }
 
