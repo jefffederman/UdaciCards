@@ -17,8 +17,11 @@ export default class NewDeck extends Component {
 
   resetAction = (title) => {
     return NavigationActions.reset({
-      index: 0,
+      index: 1,
       actions: [
+        NavigationActions.navigate({
+          routeName: 'Home'
+        }),
         NavigationActions.navigate({
           routeName: 'DeckDetail',
           params: { title }
@@ -29,14 +32,8 @@ export default class NewDeck extends Component {
 
   submit = () => {
     const title = this.state.deckTitle
-    // Add to local storage
     saveDeckTitle(title)
-      // Navigate to home page
       .then(() => this.props.navigation.dispatch(this.resetAction(title)))
-      // .then(() => this.props.navigation.navigate(
-      //   'DeckDetail',
-      //   { title }
-      // ))
   }
 
   handleTextChange = (text) => {

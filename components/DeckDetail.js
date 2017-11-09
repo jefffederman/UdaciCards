@@ -37,6 +37,8 @@ export default class DeckDetail extends Component {
     this.updateDeck()
   }
 
+  // I need this coming back from Quiz or NewCard,
+  // but it gives a warning going back to DeckList :/
   componentDidUpdate() {
     this.updateDeck()
   }
