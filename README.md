@@ -6,6 +6,10 @@ UdaciCards is a basic flashcards/quiz app. You can create decks of flashcards, e
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
+## Platforms
+
+This app has *only* been tested on the iOS simulator.
+
 ## Starting up
 
 `yarn install`
