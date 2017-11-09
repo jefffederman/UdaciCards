@@ -16,6 +16,7 @@ import Quiz from './components/Quiz'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import fakeData from './fakeData'
 import { DECKS_KEY } from './api'
+import { setLocalNotification } from './notifications'
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
   return (
@@ -79,6 +80,8 @@ export default class App extends React.Component {
         }))
       })
     })
+
+    setLocalNotification()
   }
 
   render() {
