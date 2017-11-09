@@ -60,6 +60,18 @@ export default class Quiz extends Component {
     )
   }
 
+  goBackToDeck = () => {
+    const { navigation } = this.props
+    const { title, questions } = navigation.state.params
+    this.setState(
+      {
+        ...this.defaultState,
+        questions: questions
+      },
+      () => navigation.goBack()
+    )
+  }
+
   componentDidMount() {
     const { questions } = this.props.navigation.state.params;
     this.setState({ questions })
@@ -100,10 +112,7 @@ export default class Quiz extends Component {
                    styles.button,
                   { backgroundColor: gray }
                 ]}
-                onPress={() => this.props.navigation.navigate(
-                  'DeckDetail',
-                  { title: this.props.navigation.state.params.title }
-                )}
+                onPress={this.goBackToDeck}
               >
                 <Text style={styles.buttonText}>Back to Deck</Text>
               </TouchableOpacity>

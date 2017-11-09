@@ -18,6 +18,7 @@ export default class DeckDetail extends Component {
 
   state = {
     deck: {
+      title: '',
       questions: []
     }
   }
@@ -41,42 +42,47 @@ export default class DeckDetail extends Component {
   }
 
   render() {
-    const { title, questions } = this.state.deck
+    if (this.state.deck) {
+      const { title, questions } = this.state.deck
+      return (
+        <View style={styles.deckItem}>
+          <View>
+            <Text style={styles.deckHeading}>{title}</Text>
+            <Text style={styles.deckSubheading}>{this.cardsCount()}</Text>
+          </View>
+          <View>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => this.props.navigation.navigate(
+                'NewCard',
+                { title }
+              )}
+            >
+              <Text
+                style={styles.buttonText}
+              >
+                Add Card
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.button, styles.addCard]}
+              onPress={() => this.props.navigation.navigate(
+                'Quiz',
+                { questions }
+              )}
+            >
+              <Text
+                style={[styles.buttonText, { color: white }]}
+              >
+                Start Quiz
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )
+    }
     return (
-      <View style={styles.deckItem}>
-        <View>
-          <Text style={styles.deckHeading}>{title}</Text>
-          <Text style={styles.deckSubheading}>{this.cardsCount()}</Text>
-        </View>
-        <View>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.props.navigation.navigate(
-              'NewCard',
-              { title }
-            )}
-          >
-            <Text
-              style={styles.buttonText}
-            >
-              Add Card
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.button, styles.addCard]}
-            onPress={() => this.props.navigation.navigate(
-              'Quiz',
-              { questions }
-            )}
-          >
-            <Text
-              style={[styles.buttonText, { color: white }]}
-            >
-              Start Quiz
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      <View><Text>Loading...</Text></View>
     )
   }
 }
